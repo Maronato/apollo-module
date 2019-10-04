@@ -83,8 +83,9 @@ Add `@nuxtjs/apollo` to `modules` section of `nuxt.config.js`
     // required
     clientConfigs: {
       default: {
-        // required  
+        // required
         httpEndpoint: 'http://localhost:4000',
+        browserHttpEndpoint: 'http://localhost:4000', // optional
         // optional
         // See https://www.apollographql.com/docs/link/links/http.html#options
         httpLinkOptions: {
@@ -93,6 +94,7 @@ Add `@nuxtjs/apollo` to `modules` section of `nuxt.config.js`
         // You can use `wss` for secure connection (recommended in production)
         // Use `null` to disable subscriptions
         wsEndpoint: 'ws://localhost:4000', // optional
+        browserWsEndpoint: 'ws://localhost:4000', // optional
         // LocalStorage token
         tokenName: 'apollo-token', // optional
         // Enable Automatic Query persisting with Apollo Engine
@@ -149,8 +151,8 @@ Token name for the cookie which will be set in case of authentication. You can a
 
 ### authenticationType `String`: optional, default: 'Bearer'
 
-Sets the authentication type for any authorized request. Modify this if the authentication type your GraphQL API requires is not the default `Bearer`. All requests will then be sent with the appropriate HTTP header in the format: "Authorization: <authenticationType> <your token taken from user cookies>" (Eg. `Authorization: Bearer abc123`). 
-  
+Sets the authentication type for any authorized request. Modify this if the authentication type your GraphQL API requires is not the default `Bearer`. All requests will then be sent with the appropriate HTTP header in the format: "Authorization: <authenticationType> <your token taken from user cookies>" (Eg. `Authorization: Bearer abc123`).
+
 If your backend requires an Authorization header in the format "Authorization: <your token>", without any prefix, then you should set this value to an empty string.
 
 ### includeNodeModules `Boolean`: optional, default: false
@@ -259,12 +261,12 @@ export default {
 export default {
   methods:{
     foo(){
-      // receive the associated Apollo client 
+      // receive the associated Apollo client
       const client = this.$apollo.getClient()
 
       // most likely you would call mutations like following:
       this.$apollo.mutate({mutation, variables})
-      
+
       // but you could also call queries like this:
       this.$apollo.query({query, variables})
         .then(({ data }) => {
@@ -309,7 +311,7 @@ See [vue-apollo documentation](https://vue-apollo.netlify.com/guide/apollo/queri
 
 ### Upgrade Guide apollo-module v3 => v4
 
-Version 4 of this module leaves you with zero configuration. This means we use the best possible approach available from `vue-cli-plugin-apollo` and the same configuration behaviour. This means you don't need to wire up your own configuration, simply pass 
+Version 4 of this module leaves you with zero configuration. This means we use the best possible approach available from `vue-cli-plugin-apollo` and the same configuration behaviour. This means you don't need to wire up your own configuration, simply pass
 
 Edit your configuration as following:
 ```js
@@ -328,7 +330,7 @@ apollo:{
 
 Version 3 of this module is using apollo-client 2.x. You need to make sure to update all your middle/afterware according to the upgrade guide of apollo-client. Check this source for a reference: https://www.apollographql.com/docs/apollo-server/migration-two-dot/
 
-## Troubleshooting 
+## Troubleshooting
 
 ### Use of *.gql files
 
